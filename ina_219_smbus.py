@@ -108,6 +108,8 @@ class ina219_i2c():
 	def get_current(self,mA=True):
 		self.set_cal(self.s_cal)
 		raw_value=self.read_word(self.INA219_CU)
+                if raw_value > 32767:
+                        raw_value = raw_value - 65535
 		current=(raw_value/10)
 		return round(current/(1000.0 if mA==False else 1.0),3)
 	
